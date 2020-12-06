@@ -37,6 +37,7 @@ namespace BlazorApp.Api
                     .Query("user", user)
                     .PostAsync<string>("");
 
+
                 return new OkObjectResult(result);
 
             }catch(RestRequestException e)
