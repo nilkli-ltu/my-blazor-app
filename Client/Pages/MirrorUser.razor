@@ -1,0 +1,56 @@
+﻿@page "/mirrorUser"
+@inject HttpClient Http
+@using System.Net
+
+<h1>Spegla användare</h1>
+
+<div class="form-group">
+    <label for="userinput">Användare</label>
+    <input class="form-control" id="userinput" placeholder="Object Id/PrincipalName" type="text" @bind-value="username" aria-describedby="userinputhelp" />
+    <small id="userinputhelp" class="form-text text-muted">Fyll i Object Id eller User Principal Name</small>
+</div>
+<button class="btn btn-primary" @onclick="Submit">Skicka</button>
+
+<div style="margin-top:1em">
+    @if (message != null && success)
+    {
+        <div class="alert alert-success" role="alert">
+            @message
+        </div>
+    }
+</div>
+
+@if (message != null && !success)
+{
+<div class="alert alert-warning" role="alert">
+        @message
+</div>
+}
+
+
+@code {
+    private string username;
+    private string message;
+    private bool success;
+
+    private async void Submit()
+    {
+        //message = await Http.GetStringAsync($"/api/MirrorUser?user={username}");
+        var response = await Http.GetAsync($"/api/MirrorUser?user={username}");
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            message = await response.Content.ReadAsStringAsync();
+            success = true;
+        }
+        else
+        {
+            message = await response.Content.ReadAsStringAsync();
+            if (string.IsNullOrEmpty(message))
+                message = response.ReasonPhrase;
+
+            success = false;
+
+        }
+        StateHasChanged();
+    }
+}
