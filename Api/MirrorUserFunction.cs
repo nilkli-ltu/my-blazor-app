@@ -24,7 +24,7 @@ namespace BlazorApp.Api
 
         [FunctionName("MirrorUser")]
         public async Task<ActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
         {
             string user = req.Query["user"].ToString();
             if (string.IsNullOrEmpty(user)) 
@@ -36,6 +36,7 @@ namespace BlazorApp.Api
                     .Resource("OrchestrateMirrorUser")
                     .Query("user", user)
                     .PostAsync<string>("");
+
 
                 return new OkObjectResult(result);
 
