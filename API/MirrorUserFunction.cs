@@ -12,12 +12,12 @@ namespace BlazorApp.Api
 {
     public class MirrorUserFunction
     {
-        private readonly NyaSenderClient _nyaSenderRestClient;
+        private readonly NyaSenderClient _nyaSenderClient;
         private readonly ILogger<MirrorUserFunction> _logger;
 
-        public MirrorUserFunction(NyaSenderClient nyaSenderRestClient, ILogger<MirrorUserFunction> logger)
+        public MirrorUserFunction(NyaSenderClient nyaSenderClient, ILogger<MirrorUserFunction> logger)
         {
-            _nyaSenderRestClient = nyaSenderRestClient;
+            _nyaSenderClient = nyaSenderClient;
             _logger = logger;
         }
 
@@ -31,7 +31,7 @@ namespace BlazorApp.Api
 
             try
             {
-                var result = await _nyaSenderRestClient.CallMirrorFunction(user);
+                var result = await _nyaSenderClient.CallMirrorFunction(user);
                 return new OkObjectResult(result);
 
             }catch(RequestException e)
