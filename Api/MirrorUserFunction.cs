@@ -34,7 +34,7 @@ namespace BlazorApp.Api
             try
             {
                 var result = await _nyaSenderClient.CallMirrorFunction(user);
-                return new OkObjectResult($"{result} by {name}");
+                return new OkObjectResult($"{result} by {name.Value}");
 
             }catch(RequestException e)
             {
