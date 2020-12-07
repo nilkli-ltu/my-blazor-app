@@ -1,10 +1,12 @@
 {
   "routes": [
     {
-      "route": "/*",
-      "serve": "/index.html",
-      "allowedRoles": [ "authenticated" ],
-      "statusCode": 200
+      "route": "/mirrorUser",
+      "allowedRoles": [ "authenticated" ]
+    },
+    {
+      "route": "/login",
+      "serve": "/.auth/login/aad"
     }
   ]
 }
