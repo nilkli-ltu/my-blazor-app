@@ -6,11 +6,6 @@
 <h1>Administration Integration AD - NyA</h1>
 
 Här finns stöd för att att administera integrationen mellan Azure AD oc NyA-webben
-@if(principal != null){
-<div>Inloggad som @principal.UserDetails</div>
-}else{
-<a href="/.auth/login/github">Login</a>
-}
 
 @code{
 ClientPrincipal principal;

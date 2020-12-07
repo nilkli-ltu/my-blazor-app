@@ -1,12 +1,19 @@
 {
   "routes": [
     {
-      "route": "/mirrorUser",
-      "allowedRoles": [ "authenticated" ]
-    },
-    {
       "route": "/login",
       "serve": "/.auth/login/aad"
+    },
+    {
+      "route": "/*",
+      "allowedRoles": [ "authenticated" ]
+    }
+  ],
+  "platformErrorOverrides": [
+    {
+      "errorType": "Unauthenticated",
+      "statusCode": "302",
+      "serve": "/login"
     }
   ]
 }
