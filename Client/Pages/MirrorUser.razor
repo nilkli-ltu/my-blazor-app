@@ -1,6 +1,6 @@
 ﻿@page "/mirrorUser"
-@inject HttpClient Http
-@using System.Net
+@using BlazorApp.Client
+@inject BackendService backendService
 
 <h1>Spegla användare</h1>
 
@@ -35,21 +35,12 @@
 
     private async void Submit()
     {
-        var response = await Http.GetAsync($"/api/MirrorUser?user={username}");
-        switch(response.StatusCode){
-            case HttpStatusCode.OK:
-                message = await response.Content.ReadAsStringAsync();
-                success = true;
-                break;
-            case HttpStatusCode.NotFound:
-                message = "Användaren hittades ej";
-                success = false;
-                break;
-            default:
-                message = await response.Content.ReadAsStringAsync();
-                if (string.IsNullOrEmpty(message))
-                    message = response.ReasonPhrase;
-                break;
+        try{
+            message=await backendService.CallMirrorUser(username);
+            success=true;
+        }catch(Exception e){
+            message=e.Message;
+            success=false;
         }
         StateHasChanged();
     }

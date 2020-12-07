@@ -1,9 +1,21 @@
 ﻿@page "/"
+@using BlazorApp.Client
+@inject BackendService backendService
+@using BlazorApp.Shared
 
 <h1>Administration Integration AD - NyA</h1>
 
 Här finns stöd för att att administera integrationen mellan Azure AD oc NyA-webben
+@if(principal != null){
+<div>Inloggad som @principal.UserDetails</div>
+}else{
+<a href="/.auth/login/github">Login</a>
+}
 
-<div>
-    <a href="/.auth/login/github">Login</a>
-</div>
+@code{
+ClientPrincipal principal;
+
+    protected override async void OnInitialized(){
+        principal=await backendService.GetUserInfo();
+    }
+}

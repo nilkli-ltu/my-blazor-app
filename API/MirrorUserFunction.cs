@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Security.Claims;
 
 namespace BlazorApp.Api
 {
@@ -22,6 +24,9 @@ namespace BlazorApp.Api
         public async Task<ActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
         {
+            var principal = StaticWebAppsAuth.Parse(req);
+            var name = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+
             string user = req.Query["user"].ToString();
             if (string.IsNullOrEmpty(user)) 
                 return new BadRequestObjectResult("'user' must be specified");
@@ -29,7 +34,7 @@ namespace BlazorApp.Api
             try
             {
                 var result = await _nyaSenderClient.CallMirrorFunction(user);
-                return new OkObjectResult(result);
+                return new OkObjectResult($"{result} by {name}");
 
             }catch(RequestException e)
             {
