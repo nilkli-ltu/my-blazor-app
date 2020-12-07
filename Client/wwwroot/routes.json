@@ -6,7 +6,7 @@
     },
     {
       "route": "/*",
-      "allowedRoles": [ "nya-admin" ]
+      "allowedRoles": [ "nya_admin" ]
     }
   ],
   "platformErrorOverrides": [
