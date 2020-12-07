@@ -36,12 +36,17 @@ namespace BlazorApp.Client
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
-                    return await response.Content.ReadFromJsonAsync<ClientPrincipal>();
+                    return (await response.Content.ReadFromJsonAsync<ClientPrincipalContainer>()).ClientPrincipal;
                 case HttpStatusCode.NotFound:
                     return null;
                 default:
                     throw new Exception(response.ReasonPhrase);
             }
+        }
+        
+        class ClientPrincipalContainer
+        {
+            public ClientPrincipal ClientPrincipal { get; set; }
         }
     }
 }
