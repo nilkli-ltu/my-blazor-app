@@ -27,5 +27,7 @@ ClientPrincipal principal;
 
     protected override async void OnInitialized(){
         principal=await backendService.GetUserInfo();
+        StateHasChanged();
     }
+
 }
