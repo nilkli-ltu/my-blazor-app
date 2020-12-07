@@ -35,21 +35,21 @@
 
     private async void Submit()
     {
-        //message = await Http.GetStringAsync($"/api/MirrorUser?user={username}");
         var response = await Http.GetAsync($"/api/MirrorUser?user={username}");
-        if (response.StatusCode == HttpStatusCode.OK)
-        {
-            message = await response.Content.ReadAsStringAsync();
-            success = true;
-        }
-        else
-        {
-            message = await response.Content.ReadAsStringAsync();
-            if (string.IsNullOrEmpty(message))
-                message = response.ReasonPhrase;
-
-            success = false;
-
+        switch(response.StatusCode){
+            case HttpStatusCode.OK:
+                message = await response.Content.ReadAsStringAsync();
+                success = true;
+                break;
+            case HttpStatusCode.NotFound:
+                message = "Användaren hittades ej";
+                success = false;
+                break;
+            default:
+                message = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(message))
+                    message = response.ReasonPhrase;
+                break;
         }
         StateHasChanged();
     }

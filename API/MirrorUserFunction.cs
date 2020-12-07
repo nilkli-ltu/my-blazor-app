@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Ltu.Int.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -13,10 +12,10 @@ namespace BlazorApp.Api
 {
     public class MirrorUserFunction
     {
-        private readonly NyaSenderRestClient _nyaSenderRestClient;
+        private readonly NyaSenderClient _nyaSenderRestClient;
         private readonly ILogger<MirrorUserFunction> _logger;
 
-        public MirrorUserFunction(NyaSenderRestClient nyaSenderRestClient, ILogger<MirrorUserFunction> logger)
+        public MirrorUserFunction(NyaSenderClient nyaSenderRestClient, ILogger<MirrorUserFunction> logger)
         {
             _nyaSenderRestClient = nyaSenderRestClient;
             _logger = logger;
@@ -32,15 +31,10 @@ namespace BlazorApp.Api
 
             try
             {
-                var result = await _nyaSenderRestClient.Request()
-                    .Resource("OrchestrateMirrorUser")
-                    .Query("user", user)
-                    .PostAsync<string>("");
-
-
+                var result = await _nyaSenderRestClient.CallMirrorFunction(user);
                 return new OkObjectResult(result);
 
-            }catch(RestRequestException e)
+            }catch(RequestException e)
             {
                 return new ObjectResult(e.Payload ?? e.Message)
                 {

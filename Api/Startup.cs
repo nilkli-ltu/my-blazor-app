@@ -9,7 +9,7 @@ namespace BlazorApp.Api
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.Services.AddSingleton<NyaSenderRestClient>();
+            builder.Services.AddSingleton<NyaSenderClient>();
         }
 
      }
