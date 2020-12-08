@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
+using System.Collections.Generic;
 
 namespace BlazorApp.Client
 {
@@ -28,6 +29,11 @@ namespace BlazorApp.Client
                 default:
                     throw new Exception(response.ReasonPhrase);
             }
+        }
+
+        public async Task<Dictionary<string, List<string>>> CallListGroups()
+        {
+            return await _httpClient.GetFromJsonAsync<Dictionary<string, List<string>>>($"/api/ListGroups");
         }
 
         public async Task<ClientPrincipal> GetUserInfo()

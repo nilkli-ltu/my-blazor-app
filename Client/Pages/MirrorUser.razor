@@ -3,13 +3,16 @@
 @inject BackendService backendService
 
 <h1>Spegla användare</h1>
+<EditForm Model="@userModel"  OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-<div class="form-group">
     <label for="userinput">Användare</label>
-    <input class="form-control" id="userinput" placeholder="Object Id/PrincipalName" type="text" @bind-value="username" aria-describedby="userinputhelp" />
-    <small id="userinputhelp" class="form-text text-muted">Fyll i Object Id eller User Principal Name</small>
-</div>
-<button class="btn btn-primary" @onclick="Submit">Skicka</button>
+
+    <InputText id="userinput" @bind-Value="userModel.UserName" />
+    <button type="submit">Skicka</button>
+</EditForm>
+
 
 <div style="margin-top:1em">
     @if (message != null && success)
@@ -29,14 +32,15 @@
 
 
 @code {
-    private string username;
+    private UserModel userModel = new UserModel();
+
     private string message;
     private bool success;
 
-    private async void Submit()
+    private async void HandleValidSubmit()
     {
         try{
-            message=await backendService.CallMirrorUser(username);
+            message=await backendService.CallMirrorUser(userModel.UserName);
             success=true;
         }catch(Exception e){
             message=e.Message;

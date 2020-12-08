@@ -1,0 +1,37 @@
+﻿@page "/listGroups"
+@using BlazorApp.Client
+@using System.Linq
+@inject BackendService backendService
+
+<h1>
+    Kopplade behörighetsprofiler i NyA
+</h1>
+
+@if (fetching)
+{
+    <i>Hämtar grupper...</i>
+}
+
+@foreach(var groupName in groupList.Keys.OrderBy(q => q))
+{
+    <h2>@groupName</h2>
+    <ul>
+        @foreach (var user in groupList[groupName])
+        {
+            <li>@user</li>
+        }
+    </ul>
+}
+
+@code{
+    Dictionary<string, List<string>> groupList=new Dictionary<string, List<string>>();
+    private bool fetching = true;
+
+    protected override async void OnInitialized()
+    {
+        groupList = await backendService.CallListGroups();
+        fetching = false;
+        StateHasChanged();
+    }
+
+}
