@@ -33,7 +33,7 @@ namespace BlazorApp.Client
 
         public async Task<Dictionary<string, List<string>>> CallListGroups()
         {
-            return await _httpClient.GetFromJsonAsync<Dictionary<string, List<string>>>($"/api/ListGroups");
+            return await _httpClient.GetFromJsonAsync<Dictionary<string, List<string>>>("/api/ListGroups");
         }
 
         public async Task<ClientPrincipal> GetUserInfo()
