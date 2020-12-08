@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
+using System.Net.Http.Json;
 
 namespace BlazorApp.Api
 {
@@ -21,6 +23,12 @@ namespace BlazorApp.Api
             var trace = config.GetValue<bool>("Api:TraceEnabled", false);
             if (trace)
                 _httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Trace", "true");
+        }
+
+        public async Task<Dictionary<string,List<string>>> CallListGroup()
+        {
+            var response = await _httpClient.PostAsync($"{_baseAdress}/ListGroups", new StringContent(""));
+            return await response.Content.ReadFromJsonAsync<Dictionary<string, List<string>>>();
         }
 
         public async Task<string> CallMirrorFunction(string user)

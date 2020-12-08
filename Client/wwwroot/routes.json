@@ -1,9 +1,19 @@
 {
   "routes": [
     {
+      "route": "/login",
+      "serve": "/.auth/login/aad"
+    },
+    {
       "route": "/*",
-      "serve": "/index.html",
-      "statusCode": 200
+      "allowedRoles": [ "nya_admin" ]
+    }
+  ],
+  "platformErrorOverrides": [
+    {
+      "errorType": "Unauthenticated",
+      "statusCode": "302",
+      "serve": "/login"
     }
   ]
 }
