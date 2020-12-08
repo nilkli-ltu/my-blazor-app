@@ -25,7 +25,9 @@ namespace BlazorApp.Api
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
         {
             var principal = StaticWebAppsAuth.Parse(req);
-            var name = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+            var adminUser = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+            
+            _logger.LogInformation($"Spegling begärd av {adminUser}");
 
             string user = req.Query["user"].ToString();
             if (string.IsNullOrEmpty(user)) 
@@ -33,11 +35,13 @@ namespace BlazorApp.Api
 
             try
             {
+
                 var result = await _nyaSenderClient.CallMirrorFunction(user);
-                return new OkObjectResult($"{result} by {name.Value}");
+                return new OkObjectResult(result);
 
             }catch(RequestException e)
             {
+                _logger.LogError(e, $"Spegling misslyckades: {e.Message}");
                 return new ObjectResult(e.Payload ?? e.Message)
                 {
                     StatusCode = (int)e.StatusCode
