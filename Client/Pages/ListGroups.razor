@@ -16,7 +16,7 @@
 {
     <h2>@groupName</h2>
     <ul>
-        @foreach (var user in groupList[groupName])
+        @foreach (var user in groupList[groupName].OrderBy(q=>q))
         {
             <li>@user</li>
         }
