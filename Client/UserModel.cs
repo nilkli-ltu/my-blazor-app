@@ -4,7 +4,7 @@ namespace BlazorApp.Client
 {
     public class UserModel
     {
-        [Required]
+        [Required(ErrorMessage = "Användare måste anges")]
         public string UserName { get; set; }
     }
 }
