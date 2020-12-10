@@ -10,23 +10,16 @@
             Här finns stöd för att att administera integrationen mellan Azure AD oc NyA-webben
         </div>
         <div class="col-md-4">
-            @if(principal!=null){
-            <i>Inloggad som: @principal.UserDetails</i>
-            }else{
-            <i>Ej inloggad</i>
-            }
-
+            <AuthorizeView>
+                <Authorized>
+                    <i>Inloggad som: @context.User.Identity.Name</i>
+                </Authorized>
+                <NotAuthorized>
+                    <i>Ej inloggad</i>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
         
     </div>
 </div>
 
-@code{
-ClientPrincipal principal;
-
-    protected override async void OnInitialized(){
-        principal=await backendService.GetUserInfo();
-        StateHasChanged();
-    }
-
-}

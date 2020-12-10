@@ -1,5 +1,4 @@
-﻿using BlazorApp.Shared;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -35,24 +34,6 @@ namespace BlazorApp.Client
         {
             return await _httpClient.GetFromJsonAsync<Dictionary<string, List<string>>>("/api/ListGroups");
         }
-
-        public async Task<ClientPrincipal> GetUserInfo()
-        {
-            var response = await _httpClient.GetAsync("/.auth/me");
-            switch (response.StatusCode)
-            {
-                case HttpStatusCode.OK:
-                    return (await response.Content.ReadFromJsonAsync<ClientPrincipalContainer>()).ClientPrincipal;
-                case HttpStatusCode.NotFound:
-                    return null;
-                default:
-                    throw new Exception(response.ReasonPhrase);
-            }
-        }
-        
-        class ClientPrincipalContainer
-        {
-            public ClientPrincipal ClientPrincipal { get; set; }
-        }
+      
     }
 }
