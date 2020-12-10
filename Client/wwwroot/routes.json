@@ -5,12 +5,12 @@
       "serve": "/.auth/login/aad"
     },
     {
-      "route": "/*",
-      "allowedRoles": [ "nya_admin" ]
-    },
-    {
       "route": "/api/Hello",
       "allowedRoles": [ "xxxxx" ]
+    },
+    {
+      "route": "/*",
+      "allowedRoles": [ "nya_admin" ]
     }
   ],
   "platformErrorOverrides": [
