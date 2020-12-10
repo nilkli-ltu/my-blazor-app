@@ -15,3 +15,9 @@
         <p>You can't see this because you are NOT a xxxxx.</p>
     </NotAuthorized>
 </AuthorizeView>
+
+@code{
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+}
