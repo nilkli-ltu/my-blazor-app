@@ -11,14 +11,15 @@ namespace BlazorApp.Client
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+            builder.Services.AddOptions();
+            builder.Services.AddAuthorizationCore();
+
             builder.RootComponents.Add<App>("app");
 
             var baseAddress = builder.Configuration["BaseAddress"] ?? builder.HostEnvironment.BaseAddress;
             builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(baseAddress) });
             builder.Services.AddScoped<BackendService>();
-
-            builder.Services.AddOptions();
-            builder.Services.AddAuthorizationCore();
 
             await builder.Build().RunAsync();
         }
