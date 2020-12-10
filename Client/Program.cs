@@ -3,8 +3,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-
 namespace BlazorApp.Client
+
 {
     public class Program
     {
@@ -14,6 +14,7 @@ namespace BlazorApp.Client
 
             builder.Services.AddOptions();
             builder.Services.AddAuthorizationCore();
+            builder.Services.AddAuthenticationCore();
 
             builder.RootComponents.Add<App>("app");
 
