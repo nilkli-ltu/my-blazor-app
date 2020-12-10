@@ -17,6 +17,9 @@ namespace BlazorApp.Client
             builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(baseAddress) });
             builder.Services.AddScoped<BackendService>();
 
+            builder.Services.AddOptions();
+            builder.Services.AddAuthorizationCore();
+
             await builder.Build().RunAsync();
         }
     }
