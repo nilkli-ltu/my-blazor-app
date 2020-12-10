@@ -48,5 +48,11 @@ namespace BlazorApp.Api
                 };
             }
         }
+        [FunctionName("Hello")]
+        public ActionResult Hello(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
+        {
+            return new OkObjectResult("hello");
+        }
     }
 }
