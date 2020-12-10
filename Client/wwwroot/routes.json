@@ -7,7 +7,7 @@
     {
       "route": "/*",
       "allowedRoles": [ "nya_admin" ]
-    }
+    },
     {
       "route": "/api/Hello",
       "allowedRoles": [ "xxxxx" ]
