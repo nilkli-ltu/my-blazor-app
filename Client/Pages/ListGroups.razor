@@ -6,30 +6,48 @@
     Kopplade behörighetsprofiler i NyA
 </h1>
 
+
 @if (fetching)
 {
     <i>Hämtar grupper...</i>
 }
-
-@foreach(var groupName in groupList.Keys.OrderBy(q => q))
+else
 {
-    <h2>@groupName</h2>
-    <ul>
-        @foreach (var user in groupList[groupName].OrderBy(q=>q))
-        {
-            <li>@user</li>
-        }
-    </ul>
+    <div>
+        <button @onclick="Reload">Uppdatera</button>
+    </div>
+
+    @foreach (var groupName in groupList.Keys.OrderBy(q => q))
+    {
+        <h2>@groupName</h2>
+        <ul>
+            @foreach (var user in groupList[groupName].OrderBy(q => q))
+            {
+                <li>@user</li>
+            }
+        </ul>
+    }
 }
 
+
 @code{
-    Dictionary<string, List<string>> groupList=new Dictionary<string, List<string>>();
+    Dictionary<string, List<string>> groupList = new Dictionary<string, List<string>>();
     private bool fetching = true;
 
     protected override async void OnInitialized()
     {
         groupList = await backendService.CallListGroups();
         fetching = false;
+        StateHasChanged();
+    }
+    protected async void Reload()
+    {
+        fetching = true;
+        StateHasChanged();
+
+        groupList = await backendService.CallListGroups();
+        fetching = false;
+
         StateHasChanged();
     }
 
