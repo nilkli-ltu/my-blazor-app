@@ -1,5 +1,5 @@
 ﻿@page "/testsidan"
-@attribute [Authorize(Roles = "nya_admin")]
+@attribute [Authorize(Roles = "testare")]
 <h1>Testsidan</h1>
 
 <AuthorizeView Roles="nya_admin">
@@ -7,12 +7,12 @@
     <p>You can only see this if you're a nya_admin</p>
 </AuthorizeView>
 
-<AuthorizeView Roles="xxxxx">
+<AuthorizeView Roles="superuser">
     <Authorized>
-        <p>You can only see this if you're a xxxxx.</p>
+        <p>You can only see this if you're a superuser.</p>
     </Authorized>
     <NotAuthorized>
-        <p>You can't see this because you are NOT a xxxxx.</p>
+        <p>You can't see this because you are NOT a superuser.</p>
     </NotAuthorized>
 </AuthorizeView>
 

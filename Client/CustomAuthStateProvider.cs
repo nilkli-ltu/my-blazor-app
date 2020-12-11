@@ -15,12 +15,17 @@ namespace BlazorApp.Client
     {
         private readonly HttpClient _httpClient;
         private bool _testMode;
-
+        private List<string> _testRoles;
 
         public CustomAuthStateProvider(HttpClient httpClient, IConfiguration config)
         {
             _httpClient = httpClient;
             _testMode = config.GetValue<bool>("TestMode", false);
+
+            if (_testMode)
+            {
+                _testRoles= config.GetValue<string>("TestRoles", "").Split(",").ToList();
+            }
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -51,7 +56,7 @@ namespace BlazorApp.Client
                 IdentityProvider = "Test",
                 UserDetails = "test@testson",
                 UserId = "1234567",
-                UserRoles = new List<string>() { "nya_admin" }
+                UserRoles = _testRoles
             }); ;
         }
         class ClientPrincipalContainer
