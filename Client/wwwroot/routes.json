@@ -5,8 +5,12 @@
       "serve": "/.auth/login/aad"
     },
     {
+      "route": "/testsidan",
+      "allowedRoles": [ "testare" ]
+    },
+    {
       "route": "/api/Hello",
-      "allowedRoles": [ "xxxxx" ]
+      "allowedRoles": [ "testare" ]
     },
     {
       "route": "/*",

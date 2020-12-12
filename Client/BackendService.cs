@@ -30,6 +30,10 @@ namespace BlazorApp.Client
             }
         }
 
+        public async Task<string> CallHello()
+        {
+            return await _httpClient.GetStringAsync("/api/Hello");
+        }
         public async Task<Dictionary<string, List<string>>> CallListGroups()
         {
             return await _httpClient.GetFromJsonAsync<Dictionary<string, List<string>>>("/api/ListGroups");
