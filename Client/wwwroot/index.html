@@ -4,10 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Blazor Starter</title>
+    <title>Video Test</title>
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        function LoadVideo(id, vidURL, videoType) {
+            var video = document.getElementById(id);
+            video.src = vidURL;
+            video.load();
+        }
+    </script>
+
 </head>
 
 <body>

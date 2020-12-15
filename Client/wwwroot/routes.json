@@ -5,8 +5,12 @@
       "serve": "/.auth/login/aad"
     },
     {
-      "route": "/api/Hello",
-      "allowedRoles": [ "xxxxx" ]
+      "route": "/api/ListGroups",
+      "allowedRoles": [ "nya_admin" ]
+    },
+    {
+      "route": "/api/MirrorUser",
+      "allowedRoles": [ "nya_admin" ]
     },
     {
       "route": "/*",
