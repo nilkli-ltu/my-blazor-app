@@ -5,12 +5,12 @@
       "serve": "/.auth/login/aad"
     },
     {
-      "route": "/testsidan",
-      "allowedRoles": [ "testare" ]
+      "route": "/api/ListGroups",
+      "allowedRoles": [ "nya_admin" ]
     },
     {
-      "route": "/api/Hello",
-      "allowedRoles": [ "testare" ]
+      "route": "/api/MirrorUser",
+      "allowedRoles": [ "nya_admin" ]
     },
     {
       "route": "/*",
