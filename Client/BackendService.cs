@@ -18,16 +18,7 @@ namespace BlazorApp.Client
 
         public async Task<string> CallMirrorUser(string username)
         {
-            var response = await _httpClient.GetAsync($"/api/MirrorUser?user={username}");
-            switch (response.StatusCode)
-            {
-                case HttpStatusCode.OK:
-                    return await response.Content.ReadAsStringAsync();
-                case HttpStatusCode.NotFound:
-                    throw new Exception("Användaren hittades ej");
-                default:
-                    throw new Exception(response.ReasonPhrase);
-            }
+            return await _httpClient.GetStringAsync($"/api/MirrorUser?user={username}");
         }
 
         public async Task<Dictionary<string, List<string>>> CallListGroups()
