@@ -39,7 +39,12 @@
 
     private async void HandleValidSubmit()
     {
-        try{
+        message = "Skickar...";
+        success = true;
+        StateHasChanged();
+
+        try
+        {
             message=await backendService.CallMirrorUser(userModel.UserName);
             success=true;
         }catch(Exception e){
